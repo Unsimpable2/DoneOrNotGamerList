@@ -21,12 +21,12 @@
 | `GameId`        | INT (FK)          | Game id which score was given              |
 | `GameStatus`    | VARCHAR(255)      | Game status like completed/playing/dropped |
 | `TimePlayed`    | INT               | How much time game was played (in h)       |
-| `GameplayScore` | INT               | Score for gameplay aspect (0-1)            |
-| `StoryScore`    | INT               | Score for story aspect (0-1)               |
-| `GraphicScore`  | INT               | Score for graphic aspect (0-1)             |
-| `AudioScore`    | INT               | Score for audio aspect (0-1)               |
-| `QualityScore`  | INT               | Score for quality aspect (0-1)             |
-| `SumScore`      | INT               | Sum of all scores (0-5)                    |
+| `GameplayScore` | FLOAT             | Score for gameplay aspect (0-1)            |
+| `StoryScore`    | FLOAT             | Score for story aspect (0-1)               |
+| `GraphicScore`  | FLOAT             | Score for graphic aspect (0-1)             |
+| `AudioScore`    | FLOAT             | Score for audio aspect (0-1)               |
+| `QualityScore`  | FLOAT             | Score for quality aspect (0-1)             |
+| `SumScore`      | FLOAT             | Sum of all scores (0-5)                    |
 
  ## Table `Games`
 Stores games data.
@@ -36,3 +36,4 @@ Stores games data.
 | `GameId`       | INT (PK) Not Null | Game unique identifier |
 | `GameName`     | VARCHAR(255)      | Name of a game         |
 | `GameGenre`    | VARCHAR(255)      | Genre of a game        |
+| `TotalTime`    | INT               | Total time for a game  |
