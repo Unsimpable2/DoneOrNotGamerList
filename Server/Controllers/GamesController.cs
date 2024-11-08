@@ -12,47 +12,47 @@ namespace Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class GamesController : ControllerBase
     {
         private readonly DatabaseContext _context;
 
-        public UsersController(DatabaseContext context)
+        public GamesController(DatabaseContext context)
         {
             _context = context;
         }
 
-        // GET: api/Users
+        // GET: api/Games
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUser()
+        public async Task<ActionResult<IEnumerable<Games>>> GetGames()
         {
-            return await _context.User.ToListAsync();
+            return await _context.Games.ToListAsync();
         }
 
-        // GET: api/Users/5
+        // GET: api/Games/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<Games>> GetGames(int id)
         {
-            var user = await _context.User.FindAsync(id);
+            var games = await _context.Games.FindAsync(id);
 
-            if (user == null)
+            if (games == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return games;
         }
 
-        // PUT: api/Users/5
+        // PUT: api/Games/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutGames(int id, Games games)
         {
-            if (id != user.UserId)
+            if (id != games.GameId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(games).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace Server.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!GamesExists(id))
                 {
                     return NotFound();
                 }
@@ -73,36 +73,36 @@ namespace Server.Controllers
             return NoContent();
         }
 
-        // POST: api/Users
+        // POST: api/Games
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<Games>> PostGames(Games games)
         {
-            _context.User.Add(user);
+            _context.Games.Add(games);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.UserId }, user);
+            return CreatedAtAction("GetGames", new { id = games.GameId }, games);
         }
 
-        // DELETE: api/Users/5
+        // DELETE: api/Games/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeleteGames(int id)
         {
-            var user = await _context.User.FindAsync(id);
-            if (user == null)
+            var games = await _context.Games.FindAsync(id);
+            if (games == null)
             {
                 return NotFound();
             }
 
-            _context.User.Remove(user);
+            _context.Games.Remove(games);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool UserExists(int id)
+        private bool GamesExists(int id)
         {
-            return _context.User.Any(e => e.UserId == id);
+            return _context.Games.Any(e => e.GameId == id);
         }
     }
 }

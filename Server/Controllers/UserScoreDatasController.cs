@@ -12,47 +12,47 @@ namespace Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class UserScoreDatasController : ControllerBase
     {
         private readonly DatabaseContext _context;
 
-        public UsersController(DatabaseContext context)
+        public UserScoreDatasController(DatabaseContext context)
         {
             _context = context;
         }
 
-        // GET: api/Users
+        // GET: api/UserScoreDatas
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUser()
+        public async Task<ActionResult<IEnumerable<UserScoreData>>> GetUserScoreData()
         {
-            return await _context.User.ToListAsync();
+            return await _context.UserScoreData.ToListAsync();
         }
 
-        // GET: api/Users/5
+        // GET: api/UserScoreDatas/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<UserScoreData>> GetUserScoreData(int id)
         {
-            var user = await _context.User.FindAsync(id);
+            var userScoreData = await _context.UserScoreData.FindAsync(id);
 
-            if (user == null)
+            if (userScoreData == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return userScoreData;
         }
 
-        // PUT: api/Users/5
+        // PUT: api/UserScoreDatas/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutUserScoreData(int id, UserScoreData userScoreData)
         {
-            if (id != user.UserId)
+            if (id != userScoreData.ScoreId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(userScoreData).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace Server.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!UserScoreDataExists(id))
                 {
                     return NotFound();
                 }
@@ -73,36 +73,36 @@ namespace Server.Controllers
             return NoContent();
         }
 
-        // POST: api/Users
+        // POST: api/UserScoreDatas
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<UserScoreData>> PostUserScoreData(UserScoreData userScoreData)
         {
-            _context.User.Add(user);
+            _context.UserScoreData.Add(userScoreData);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.UserId }, user);
+            return CreatedAtAction("GetUserScoreData", new { id = userScoreData.ScoreId }, userScoreData);
         }
 
-        // DELETE: api/Users/5
+        // DELETE: api/UserScoreDatas/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeleteUserScoreData(int id)
         {
-            var user = await _context.User.FindAsync(id);
-            if (user == null)
+            var userScoreData = await _context.UserScoreData.FindAsync(id);
+            if (userScoreData == null)
             {
                 return NotFound();
             }
 
-            _context.User.Remove(user);
+            _context.UserScoreData.Remove(userScoreData);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool UserExists(int id)
+        private bool UserScoreDataExists(int id)
         {
-            return _context.User.Any(e => e.UserId == id);
+            return _context.UserScoreData.Any(e => e.ScoreId == id);
         }
     }
 }

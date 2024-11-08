@@ -3,23 +3,23 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Server.Models
 {
-    public class User
+    public class Games
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int UserId { get; set; }
+        public int GameId { get; set; }
 
         public ICollection<UserScoreData> ScoreData { get; set; } = new List<UserScoreData>();
 
         [Required]
         [StringLength(255)]
-        public string? UserLogin { get; set; }
+        public string? GameName { get; set; }
 
         [Required]
         [StringLength(255)]
-        public string? UserPassword { get; set; }
+        public string? GameGenre { get; set; }
 
         [Required]
-        public DateTime AccountDate { get; set; }
+        public int TotalTime { get; set; }
     }
 }
